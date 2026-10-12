@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Claude API Pricing — Haiku 5.5 vs Sonnet 5.5 vs Opus 5.5</title>
-  <meta name="description" content="Compare Claude Haiku 5.5, Sonnet 5.5 and Opus 5.5 API input, output and prompt-caching prices per million tokens.">
+  <meta name="description" content="Compare Claude API pricing per million tokens, estimate monthly Haiku, Sonnet and Opus costs, and learn how caching and batch processing affect spend.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://llmpricecalc.com/claude-api-pricing/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="../hub.css">
+  <link rel="stylesheet" href="../hub.css"><link rel="stylesheet" href="../pricing-hub.css">
   <link rel="stylesheet" href="../feedback.css">
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="../" aria-label="LLM Price Calc home"><span class="brand-mark">LP</span><span>LLM Price Calc</span></a>
-    <nav aria-label="Main navigation"><a href="../">Haiku calculator</a><a href="#models">Claude prices</a><a href="../gpt-6-1-sol-ultrafast-vs-standard/">Sol Ultrafast</a><a href="../step-5-preview-pricing/">Step 5</a><a href="../haiku-5-5-vs-gpt-6-luna/">Haiku vs Luna</a></nav>
+    <nav aria-label="Main navigation"><a href="../">Haiku calculator</a><a href="../llm-api-pricing/">All LLM prices</a><a href="#models">Claude prices</a><a href="#estimator">Cost estimator</a><a href="#faq">FAQ</a></nav>
     <span class="independent">Independent tool</span>
   </header>
   <main>
@@ -28,13 +28,19 @@
       <article class="model-card"><span class="tag">BALANCED</span><h2>Sonnet 5.5</h2><span class="model-id">claude-sonnet-5-5</span><div class="price-pair"><div><span>INPUT / MTOK</span><strong>$2.00</strong></div><div><span>OUTPUT / MTOK</span><strong>$10.00</strong></div></div><p class="price-note">Cache read $0.10 · five-minute cache write $2.50.</p></article>
       <article class="model-card"><span class="tag">MOST CAPABLE</span><h2>Opus 5.5</h2><span class="model-id">claude-opus-5-5</span><div class="price-pair"><div><span>INPUT / MTOK</span><strong>$4.00</strong></div><div><span>OUTPUT / MTOK</span><strong>$20.00</strong></div></div><p class="price-note">Cache read $0.20 · five-minute cache write $5.00. Fast mode costs more.</p></article>
     </section>
+    <section class="comparison" id="estimator">
+      <div class="section-title"><span>01 / COST ESTIMATOR</span><h2>Estimate a Claude API workload.</h2><p>Choose a model and enter monthly token volume. The estimate uses the displayed list rates and runs entirely in your browser.</p></div>
+      <div class="estimator-panel"><div class="field-grid compact-fields"><label>Claude model<select id="claudeModel"><option value="haiku">Haiku 5.5 · short prompt tier</option><option value="sonnet">Sonnet 5.5</option><option value="opus">Opus 5.5</option></select></label><label>Input tokens / month<input id="claudeInput" type="number" min="0" step="100000" value="10000000"></label><label>Output tokens / month<input id="claudeOutput" type="number" min="0" step="100000" value="2000000"></label></div><div class="estimate-result"><span>Estimated monthly token cost</span><strong id="claudeEstimate">$2.00</strong><small>Before cache, batch, regional or provider-specific adjustments.</small></div></div>
+    </section>
     <section class="comparison" id="choose">
       <div class="section-title"><span>01 / QUICK DECISION</span><h2>Choose for the workload, not only the token rate.</h2><p>A cheaper model may use a different number of tokens or need more retries. Test on your own workload.</p></div>
       <div class="decision-grid"><article><h3>Choose Haiku</h3><p>For high-volume summarization, classification, routing, compaction and real-time experiences where speed and unit cost matter.</p></article><article><h3>Choose Sonnet</h3><p>For well-scoped coding, agents and everyday production work that needs a stronger balance of capability, latency and price.</p></article><article><h3>Choose Opus</h3><p>For complex, long-running work where judgment and reliability matter more than the lowest token cost.</p></article></div>
     </section>
+    <section class="comparison" id="scenarios"><div class="section-title"><span>03 / REAL COST SCENARIOS</span><h2>Translate token prices into product decisions.</h2></div><div class="decision-grid"><article><h3>Support classification</h3><p>10M input and 2M output tokens cost about $2 on the listed Haiku short-tier rates, before caching or batch discounts.</p></article><article><h3>Production coding agent</h3><p>The same volume costs about $40 on Sonnet. Track retries and accepted patches because task cost matters more than price per token.</p></article><article><h3>Complex research</h3><p>The same volume costs about $80 on Opus. Reserve the higher rate for tasks where stronger judgment reduces costly failures.</p></article></div></section>
+    <section class="comparison faq" id="faq"><div class="section-title"><span>04 / FAQ</span><h2>Claude API pricing questions</h2></div><details><summary>How is Claude API cost calculated?</summary><p>Multiply input and output token counts by their respective per-million-token rates, then add cache and provider-specific charges.</p></details><details><summary>Which Claude model is cheapest?</summary><p>Haiku has the lowest displayed token rates. The cheapest model per completed task can differ when retries, output length and quality requirements are included.</p></details><details><summary>Does prompt caching reduce Claude cost?</summary><p>It can reduce repeated-input cost when the workload meets the provider’s caching rules. Cache writes and reads have separate rates.</p></details><details><summary>Are AWS Bedrock and Vertex AI prices identical?</summary><p>Do not assume so. Verify the rate card for the exact platform and region you deploy to.</p></details><details><summary>How often should I verify API prices?</summary><p>Check the official provider page before launch and whenever a model, context tier or hosting route changes.</p></details></section>
     <section class="cta-panel"><div><h2>Calculate a real Haiku 5.5 workload.</h2><p>Include prompt length, caching, Batch API and monthly request volume.</p></div><a class="cta-button" href="../#calculator">Open calculator →</a></section>
   </main>
   <footer><div><strong>LLM Price Calc</strong><p>Independent API pricing guides and calculators.</p></div><div><span>Last verified October 9, 2026</span><a href="../gpt-6-1-sol-ultrafast-vs-standard/">GPT-6.1 Sol Ultrafast</a><a href="../step-5-preview-pricing/">Step 5 Preview pricing</a><a href="../privacy.html">Privacy</a></div></footer>
-  <script src="../feedback.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded',()=>{const rates={haiku:[.1,.5],sonnet:[2,10],opus:[4,20]},m=document.getElementById('claudeModel'),i=document.getElementById('claudeInput'),o=document.getElementById('claudeOutput'),r=document.getElementById('claudeEstimate');function calc(){const p=rates[m.value];r.textContent=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format((Number(i.value||0)*p[0]+Number(o.value||0)*p[1])/1e6)}[m,i,o].forEach(el=>el.addEventListener('input',calc));calc()});</script><script src="../feedback.js" defer></script>
 </body>
 </html>

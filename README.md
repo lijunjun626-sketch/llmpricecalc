@@ -7,6 +7,7 @@ The site is static HTML, CSS, and JavaScript. Open `index.html` through a local 
 ## Key pages
 
 - `/` — Claude Haiku 5.5 pricing calculator
+- `/llm-api-pricing/` — multi-model LLM API price comparison and calculator
 - `/claude-api-pricing/` — Claude API pricing hub
 - `/step-5-preview-pricing/` — Step 5 Preview pricing guide
 - Model comparison and newly released model pricing pages
