@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Claude Haiku 5.5 Pricing Calculator — Cost per 1M Tokens</title>
+  <meta name="description" content="Calculate Claude Haiku 5.5 API cost using official token prices. Compare short and long prompt tiers, caching, Batch API and Haiku 4.5.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://llmpricecalc.com/">
+  <meta property="og:title" content="Claude Haiku 5.5 Pricing Calculator">
+  <meta property="og:description" content="Estimate Haiku 5.5 API costs and compare both prompt tiers with Haiku 4.5.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://llmpricecalc.com/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="hub.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Claude Haiku 5.5 Pricing Calculator","applicationCategory":"DeveloperApplication","operatingSystem":"Any","isAccessibleForFree":true,"description":"An independent calculator for estimating Claude Haiku 5.5 API token costs."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does Claude Haiku 5.5 cost?","acceptedAnswer":{"@type":"Answer","text":"For prompts up to 100,000 tokens, official Claude Platform prices are $0.10 per million input tokens and $0.50 per million output tokens. For prompts over 100,000 tokens, they are $0.50 and $2.50 respectively."}},{"@type":"Question","name":"Is Haiku 5.5 cheaper than Haiku 4.5?","acceptedAnswer":{"@type":"Answer","text":"At the published list prices, it is 90% cheaper for equivalent token counts in the short tier and 50% cheaper in the long tier. Actual task-level savings can differ."}},{"@type":"Question","name":"What is the 100K token threshold?","acceptedAnswer":{"@type":"Answer","text":"The tier is determined per request by prompt tokens, including normal input plus cache reads and cache writes in this calculator. It is not based on monthly usage."}},{"@type":"Question","name":"What is the Claude Haiku 5.5 model ID?","acceptedAnswer":{"@type":"Answer","text":"Anthropic lists claude-haiku-5-5 as the model ID on the Claude Platform."}},{"@type":"Question","name":"Does Haiku 5.5 support prompt caching?","acceptedAnswer":{"@type":"Answer","text":"Yes. The published cache-read and five-minute cache-write rates are included above. Other cache durations and providers may use different prices."}}]}</script>
+  <link rel="stylesheet" href="feedback.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="LLM Price Calc home"><span class="brand-mark">LP</span><span>LLM Price Calc</span></a>
+    <nav aria-label="Main navigation"><a href="#calculator">Calculator</a><a href="ideogram-4-5-pricing/">Ideogram 4.5</a><a href="gpt-6-1-sol-ultrafast-vs-standard/">Sol Ultrafast</a><a href="step-5-preview-pricing/">Step 5</a><a href="haiku-5-5-vs-gpt-6-luna/">vs GPT-6 Luna</a></nav>
+    <span class="independent">Independent tool</span>
+  </header>
+
+  <main id="top">
+    <section class="intro">
+      <div>
+        <p class="eyebrow">CLAUDE API · VERIFIED OCTOBER 8, 2026</p>
+        <h1>Claude Haiku 5.5<br><em>Pricing Calculator</em></h1>
+      </div>
+      <p>Estimate one request and monthly spend using Anthropic’s two prompt-length tiers. Compare Haiku 5.5 with Haiku 4.5 without sending data anywhere.</p>
+    </section>
+
+    <section class="calculator" id="calculator" aria-labelledby="calc-title">
+      <div class="calc-head"><div><span>01 / WORKING CALCULATOR</span><h2 id="calc-title">Model your API cost</h2></div><a href="https://www.anthropic.com/claude-haiku-5-5" target="_blank" rel="noopener">Official source</a></div>
+      <div class="calc-grid">
+        <form class="controls" id="cost-form">
+          <div class="field-grid">
+            <label>Input tokens per request<input id="inputTokens" type="number" min="0" step="1000" value="100000" inputmode="numeric"></label>
+            <label>Output tokens per request<input id="outputTokens" type="number" min="0" step="1000" value="20000" inputmode="numeric"></label>
+            <label>Cached input tokens<input id="cacheRead" type="number" min="0" step="1000" value="0" inputmode="numeric"></label>
+            <label>Requests per month<input id="requests" type="number" min="1" step="100" value="1000" inputmode="numeric"></label>
+          </div>
+          <details class="advanced"><summary>Advanced pricing controls</summary><div class="advanced-inner">
+            <label>Cache write tokens<input id="cacheWrite" type="number" min="0" step="1000" value="0" inputmode="numeric"></label>
+            <fieldset><legend>Prompt tier</legend><label class="radio"><input type="radio" name="tier" value="auto" checked> Auto</label><label class="radio"><input type="radio" name="tier" value="low"> ≤100K</label><label class="radio"><input type="radio" name="tier" value="high"> &gt;100K</label></fieldset>
+            <label class="switch"><input id="batch" type="checkbox"><span></span> Batch API −50%</label>
+            <label class="switch"><input id="usOnly" type="checkbox"><span></span> US-only inference +10%</label>
+          </div></details>
+          <p class="privacy-note">All calculations run in this browser. No prompt or account data is collected.</p>
+        </form>
+
+        <div class="results" aria-live="polite">
+          <div class="tier-line"><span>Applied tier</span><strong id="appliedTier">≤100K prompt</strong></div>
+          <div class="hero-number"><span>Estimated monthly cost</span><strong id="monthlyCost">$20.00</strong><small id="perRequest">$0.020000 per request</small></div>
+          <div class="compare-grid">
+            <div><span>Haiku 4.5 monthly</span><strong id="oldMonthly">$200.00</strong></div>
+            <div><span>Estimated savings</span><strong id="savings">$180.00</strong><small id="savingsPercent">90.0% less</small></div>
+          </div>
+          <div class="meter"><span id="meterFill"></span></div>
+          <p id="thresholdNote">100,000 prompt tokens. This request is in the lower price tier.</p>
+        </div>
+      </div>
+      <div class="dual-result">
+        <p>Same workload, both Haiku 5.5 tiers</p>
+        <div><span>≤100K rate</span><strong id="lowScenario">$0.020000</strong></div>
+        <div><span>&gt;100K rate</span><strong id="highScenario">$0.100000</strong></div>
+      </div>
+    </section>
+
+    <section class="rates" id="pricing">
+      <div class="section-title"><span>02 / OFFICIAL RATE CARD</span><h2>Two tiers. One important threshold.</h2><p>The threshold applies to prompt length for each request—not total monthly tokens.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>Per 1M tokens</th><th>Haiku 5.5 ≤100K</th><th>Haiku 5.5 &gt;100K</th><th>Haiku 4.5</th></tr></thead><tbody><tr><th>Input</th><td>$0.10</td><td>$0.50</td><td>$1.00</td></tr><tr><th>Output</th><td>$0.50</td><td>$2.50</td><td>$5.00</td></tr><tr><th>Cache read</th><td>$0.01</td><td>$0.05</td><td>$0.10</td></tr><tr><th>Cache write · 5 min</th><td>$0.125</td><td>$0.625</td><td>$1.25</td></tr></tbody></table></div>
+      <div class="fact-grid"><article><b>90%</b><h3>Lower list price in the short tier</h3><p>Compared with Haiku 4.5 at the same token counts. Actual task savings can differ because token usage may change.</p></article><article><b>50%</b><h3>Batch processing discount</h3><p>Apply the Batch API switch in the calculator to model asynchronous workloads.</p></article><article><b>1.1×</b><h3>US-only inference multiplier</h3><p>The optional US-only inference setting is priced at 1.1 times the global rate.</p></article></div>
+    </section>
+
+    <section class="explain">
+      <div class="section-title"><span>03 / CALCULATION METHOD</span><h2>Know exactly what is being counted.</h2></div>
+      <div class="formula"><code>cost = input × input_rate + output × output_rate<br>+ cache_read × read_rate + cache_write × write_rate</code><p>Every token quantity is divided by one million. Monthly cost multiplies the result by requests per month. Batch and regional multipliers are applied last.</p></div>
+      <div class="warning"><strong>Important:</strong><p>“90% cheaper” is a list-price comparison for requests up to 100K prompt tokens. Anthropic says Haiku 5.5 costs around 75% less on average; actual workloads depend on prompt length and tokenization.</p></div>
+    </section>
+
+    <section class="faq" id="faq"><div class="section-title"><span>04 / QUICK ANSWERS</span><h2>Frequently asked questions</h2></div>
+      <details><summary>How much does Claude Haiku 5.5 cost?</summary><p>On the Claude Platform, prompts up to 100K use $0.10 per million input tokens and $0.50 per million output tokens. Prompts over 100K use $0.50 input and $2.50 output.</p></details>
+      <details><summary>Is Haiku 5.5 cheaper than Haiku 4.5?</summary><p>At the published list prices, it is 90% cheaper for equivalent token counts in the short tier and 50% cheaper in the long tier. Actual task-level savings can differ.</p></details>
+      <details><summary>What counts toward the 100K threshold?</summary><p>This calculator treats normal input, cache reads and cache writes as prompt tokens for each individual request. Monthly token totals do not choose the tier.</p></details>
+      <details><summary>What is the Haiku 5.5 model ID?</summary><p><code>claude-haiku-5-5</code> on the Claude Platform. Check Anthropic’s current documentation before production use.</p></details>
+      <details><summary>Does Haiku 5.5 support prompt caching?</summary><p>Yes. The published cache-read and five-minute cache-write rates are included above. Other cache durations and providers may use different prices.</p></details>
+    </section>
+  </main>
+
+  <footer><div><strong>LLM Price Calc</strong><p>Independent AI pricing guides, not affiliated with model providers.</p></div><div><span>Last verified October 10, 2026</span><a href="ideogram-4-5-pricing/">Ideogram 4.5 pricing</a><a href="gpt-6-1-sol-ultrafast-vs-standard/">GPT-6.1 Sol Ultrafast vs Standard</a><a href="step-5-preview-pricing/">Step 5 Preview pricing</a><a href="privacy.html">Privacy</a></div></footer>
+  <script src="app.js" defer></script>
+  <script src="feedback.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Claude API Pricing — Haiku 5.5 vs Sonnet 5.5 vs Opus 5.5</title>
+  <meta name="description" content="Compare Claude Haiku 5.5, Sonnet 5.5 and Opus 5.5 API input, output and prompt-caching prices per million tokens.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://llmpricecalc.com/claude-api-pricing/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../hub.css">
+  <link rel="stylesheet" href="../feedback.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="LLM Price Calc home"><span class="brand-mark">LP</span><span>LLM Price Calc</span></a>
+    <nav aria-label="Main navigation"><a href="../">Haiku calculator</a><a href="#models">Claude prices</a><a href="../gpt-6-1-sol-ultrafast-vs-standard/">Sol Ultrafast</a><a href="../step-5-preview-pricing/">Step 5</a><a href="../haiku-5-5-vs-gpt-6-luna/">Haiku vs Luna</a></nav>
+    <span class="independent">Independent tool</span>
+  </header>
+  <main>
+    <section class="pricing-hero">
+      <div><p class="eyebrow">CLAUDE API · VERIFIED OCTOBER 8, 2026</p><h1>Claude API<br><em>Pricing</em></h1></div>
+      <p>Compare current list prices for the Claude 5.5 family. Prices are USD per one million tokens on the Claude Platform; provider-specific rates can differ.</p>
+    </section>
+    <section class="model-grid" id="models" aria-label="Claude 5.5 model pricing">
+      <article class="model-card featured"><span class="tag">FASTEST · LOWEST COST</span><h2>Haiku 5.5</h2><span class="model-id">claude-haiku-5-5</span><div class="price-pair"><div><span>INPUT / MTOK</span><strong>$0.10*</strong></div><div><span>OUTPUT / MTOK</span><strong>$0.50*</strong></div></div><p class="price-note">*For prompts up to 100K tokens. Above 100K: $0.50 input and $2.50 output.</p></article>
+      <article class="model-card"><span class="tag">BALANCED</span><h2>Sonnet 5.5</h2><span class="model-id">claude-sonnet-5-5</span><div class="price-pair"><div><span>INPUT / MTOK</span><strong>$2.00</strong></div><div><span>OUTPUT / MTOK</span><strong>$10.00</strong></div></div><p class="price-note">Cache read $0.10 · five-minute cache write $2.50.</p></article>
+      <article class="model-card"><span class="tag">MOST CAPABLE</span><h2>Opus 5.5</h2><span class="model-id">claude-opus-5-5</span><div class="price-pair"><div><span>INPUT / MTOK</span><strong>$4.00</strong></div><div><span>OUTPUT / MTOK</span><strong>$20.00</strong></div></div><p class="price-note">Cache read $0.20 · five-minute cache write $5.00. Fast mode costs more.</p></article>
+    </section>
+    <section class="comparison" id="choose">
+      <div class="section-title"><span>01 / QUICK DECISION</span><h2>Choose for the workload, not only the token rate.</h2><p>A cheaper model may use a different number of tokens or need more retries. Test on your own workload.</p></div>
+      <div class="decision-grid"><article><h3>Choose Haiku</h3><p>For high-volume summarization, classification, routing, compaction and real-time experiences where speed and unit cost matter.</p></article><article><h3>Choose Sonnet</h3><p>For well-scoped coding, agents and everyday production work that needs a stronger balance of capability, latency and price.</p></article><article><h3>Choose Opus</h3><p>For complex, long-running work where judgment and reliability matter more than the lowest token cost.</p></article></div>
+    </section>
+    <section class="cta-panel"><div><h2>Calculate a real Haiku 5.5 workload.</h2><p>Include prompt length, caching, Batch API and monthly request volume.</p></div><a class="cta-button" href="../#calculator">Open calculator →</a></section>
+  </main>
+  <footer><div><strong>LLM Price Calc</strong><p>Independent API pricing guides and calculators.</p></div><div><span>Last verified October 9, 2026</span><a href="../gpt-6-1-sol-ultrafast-vs-standard/">GPT-6.1 Sol Ultrafast</a><a href="../step-5-preview-pricing/">Step 5 Preview pricing</a><a href="../privacy.html">Privacy</a></div></footer>
+  <script src="../feedback.js" defer></script>
+</body>
+</html>
