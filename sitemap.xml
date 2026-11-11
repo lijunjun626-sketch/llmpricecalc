@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://llmpricecalc.com/</loc><lastmod>2026-10-08</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://llmpricecalc.com/llm-api-pricing/</loc><lastmod>2026-10-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://llmpricecalc.com/</loc><lastmod>2026-11-12</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://llmpricecalc.com/llm-api-pricing/</loc><lastmod>2026-11-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://llmpricecalc.com/ai-coding-rules-generator/</loc><lastmod>2026-10-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://llmpricecalc.com/claude-api-pricing/</loc><lastmod>2026-10-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://llmpricecalc.com/claude-api-pricing/</loc><lastmod>2026-11-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://llmpricecalc.com/haiku-5-5-vs-haiku-4-5/</loc><lastmod>2026-10-08</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://llmpricecalc.com/haiku-5-5-vs-sonnet-5-5/</loc><lastmod>2026-10-08</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://llmpricecalc.com/claude-haiku-5-5-pricing/</loc><lastmod>2026-10-11</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
@@ -12,8 +12,11 @@
   <url><loc>https://llmpricecalc.com/gpt-6-1-sol-ultrafast-vs-standard/</loc><lastmod>2026-10-09</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://llmpricecalc.com/step-5-preview-pricing/</loc><lastmod>2026-10-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://llmpricecalc.com/ideogram-4-5-pricing/</loc><lastmod>2026-10-10</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://llmpricecalc.com/gemini-4-argon-pricing/</loc><lastmod>2026-10-19</lastmod></url>
+  <url><loc>https://llmpricecalc.com/gemini-4-argon-pricing/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://llmpricecalc.com/dessa-ai-voice/</loc><lastmod>2026-10-27</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://llmpricecalc.com/ai-changing-uk-stem-jobs/</loc><lastmod>2026-10-27</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://llmpricecalc.com/gpt-6-1-terra-pricing/</loc><lastmod>2026-10-27</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://llmpricecalc.com/gemini-4-carbon-pricing/</loc><lastmod>2026-11-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://llmpricecalc.com/claude-fable-5-2-pricing/</loc><lastmod>2026-11-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://llmpricecalc.com/speech-to-text-cost-calculator/</loc><lastmod>2026-11-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
 </urlset>

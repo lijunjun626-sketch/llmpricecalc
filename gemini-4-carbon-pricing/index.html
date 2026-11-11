@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gemini 4 Carbon Pricing Calculator — Introductory and December 2026 Rates</title>
+  <meta name="description" content="Estimate Gemini 4 Carbon Developer API cost. Introductory rates run through November 30, 2026, then the published December 1 rates apply. Includes implicit cache and thinking tokens.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://llmpricecalc.com/gemini-4-carbon-pricing/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gemini 4 Carbon Pricing Calculator">
+  <meta property="og:description" content="Compare Gemini 4 Carbon introductory and December 1, 2026 Developer API token rates.">
+  <meta property="og:url" content="https://llmpricecalc.com/gemini-4-carbon-pricing/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../hub.css">
+  <link rel="stylesheet" href="../compare.css">
+  <link rel="stylesheet" href="../feedback.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Gemini 4 Carbon Pricing Calculator","url":"https://llmpricecalc.com/gemini-4-carbon-pricing/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","isAccessibleForFree":true,"description":"Independent calculator for Gemini 4 Carbon Developer API token rates, including the December 1, 2026 price change."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does Gemini 4 Carbon cost?","acceptedAnswer":{"@type":"Answer","text":"On the public Gemini Developer API, paid-tier input is $2 per million tokens through November 30, 2026 and $4 starting December 1, 2026. Output, including thinking tokens, is $10 then $20. Implicit context caching is $0.10 then $0.20. There is no free tier."}},{"@type":"Question","name":"Does Gemini 4 Carbon include a free tier?","acceptedAnswer":{"@type":"Answer","text":"No. Google's pricing page says Gemini 4 Carbon is not available on the free tier."}},{"@type":"Question","name":"Are thinking tokens billed separately?","acceptedAnswer":{"@type":"Answer","text":"Google lists the output price as including thinking tokens. This calculator adds thinking tokens to output and bills them at the output rate for the selected date."}}]}</script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">LP</span><span>LLM Price Calc</span></a>
+    <nav aria-label="Main navigation"><a href="#calculator">Calculator</a><a href="#prices">Prices</a><a href="#compare">Compare</a><a href="#faq">FAQ</a></nav>
+    <span class="independent">Independent tool</span>
+  </header>
+  <main>
+    <section class="compare-hero">
+      <div>
+        <p class="eyebrow">GEMINI DEVELOPER API · PRICES CHECKED NOVEMBER 12, 2026 (ASIA/SHANGHAI)</p>
+        <h1>Gemini 4 Carbon<br><em>Pricing Calculator</em></h1>
+      </div>
+      <p>Public model ID <code>gemini-4-carbon</code>. On November 12, 2026 the published paid rate is still the introductory schedule. It changes on December 1, 2026. This page prices the public Developer API only.</p>
+    </section>
+    <section class="verdict">
+      <span>THE RATE IN FORCE ON THE CHECK DATE</span>
+      <div>
+        <h2>$2 input and $10 output through November 30, 2026.</h2>
+        <p>Starting December 1, 2026, Google's pricing page lists $4 input and $20 output per million tokens. Implicit context caching moves from $0.10 to $0.20. The introductory numbers are a dated schedule, not a permanent price.</p>
+      </div>
+    </section>
+    <section class="calculator" id="calculator">
+      <div class="calc-head">
+        <div><span>01 / WORKING CALCULATOR</span><h2>Choose the billing date, then count tokens</h2></div>
+        <a href="https://aistudio.google.com/docs/pricing" target="_blank" rel="noopener">Official pricing</a>
+      </div>
+      <div class="calc-grid">
+        <form class="controls" id="cost-form">
+          <div class="field-grid">
+            <label>Uncached input tokens<input id="input" type="number" min="0" step="1000" value="1000000"></label>
+            <label>Implicit-cache tokens<input id="cached" type="number" min="0" step="1000" value="1000000"></label>
+            <label>Output tokens, excluding thinking<input id="output" type="number" min="0" step="1000" value="200000"></label>
+            <label>Thinking tokens, billed as output<input id="thinking" type="number" min="0" step="1000" value="100000"></label>
+            <label>Requests<input id="requests" type="number" min="0" step="1" value="1"></label>
+            <label>Time zone for Auto<select id="timeZone"><option value="browser">Browser time zone</option><option value="Asia/Shanghai" selected>Asia/Shanghai</option><option value="UTC">UTC</option><option value="America/Los_Angeles">America/Los_Angeles</option><option value="America/New_York">America/New_York</option><option value="Europe/London">Europe/London</option><option value="Asia/Tokyo">Asia/Tokyo</option><option value="Pacific/Kiritimati">Pacific/Kiritimati</option></select></label>
+          </div>
+          <fieldset class="advanced">
+            <legend>Billing date</legend>
+            <label class="radio"><input type="radio" name="dateMode" value="auto" checked> Auto</label>
+            <label class="radio"><input type="radio" name="dateMode" value="explicit"> Explicit date</label>
+            <label>Explicit calendar date<input id="billingDate" type="date" value="2026-11-12" disabled></label>
+          </fieldset>
+          <p class="privacy-note">Token counts stay in this browser. Google's pricing page names November 30 and December 1, 2026, and does not name a timezone for that cutoff. Auto uses the calendar date in the selected IANA time zone. It is a planning clock, not Google's invoice clock.</p>
+        </form>
+        <div class="results" aria-live="polite">
+          <div class="tier-line"><span id="activeDate">2026-11-12 · Asia/Shanghai</span><strong id="activePeriod">Introductory Developer API rate, through November 30, 2026</strong></div>
+          <div class="hero-number"><span>Selected schedule</span><strong id="activeCost">$5.10</strong><small id="perRequest">$5.10 for one request</small></div>
+          <div class="compare-grid">
+            <div><span>Same tokens through Nov 30</span><strong id="introCost">$5.10</strong></div>
+            <div><span>Same tokens from Dec 1</span><strong id="laterCost">$10.20</strong></div>
+          </div>
+          <p id="error" role="alert"></p>
+        </div>
+      </div>
+      <div class="dual-result">
+        <p>Same uncached input, cache-read, output, and thinking tokens on Claude Fable 5.2 standard global</p>
+        <div><span>Fable 5.2 standard</span><strong id="fableCost">$20.20</strong></div>
+        <div><span>Detail</span><a href="../claude-fable-5-2-pricing/">Open Fable calculator</a></div>
+      </div>
+      <noscript><p>JavaScript is off, so the date does not switch automatically. For 1,000,000 uncached input tokens, 1,000,000 implicit-cache tokens, 200,000 output tokens, and 100,000 thinking tokens, the introductory total is $5.10 and the December 1 total is $10.20.</p></noscript>
+    </section>
+    <section class="content-section" id="prices">
+      <div class="section-title"><span>02 / OFFICIAL RATE CARD</span><h2>Two published schedules. One public model.</h2><p>USD per million tokens on the Gemini Developer API paid tier. Checked November 12, 2026.</p></div>
+      <div class="table-wrap comparison-table">
+        <table>
+          <caption>gemini-4-carbon public Developer API, paid tier</caption>
+          <thead><tr><th>Category</th><th>Through November 30, 2026</th><th>From December 1, 2026</th></tr></thead>
+          <tbody>
+            <tr><th>Input</th><td>$2.00</td><td>$4.00</td></tr>
+            <tr><th>Output, including thinking tokens</th><td>$10.00</td><td>$20.00</td></tr>
+            <tr><th>Context caching, implicit only</th><td>$0.10</td><td>$0.20</td></tr>
+            <tr><th>Free tier</th><td>Not available</td><td>Not available</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lede">Implicit caching only. Explicit caching is not supported, and the Carbon rows do not list a cache-write premium or hourly cache storage price. This calculator does not add either. Grounding with Google Search or Maps is excluded.</p>
+      <div class="warning"><strong>Scope:</strong><p>Prices are for the public Developer API model <code>gemini-4-carbon</code>. Google's announcement says the quoted token price applies to the Carbon model intended for public access. This page does not mix in the restricted cybersecurity route or a Vertex AI markup. Those routes are not given a price here.</p></div>
+    </section>
+    <section class="content-section" id="compare">
+      <div class="section-title"><span>03 / SAME TOKEN TOTALS</span><h2>Carbon beside Claude Fable 5.2.</h2><p>The comparison uses the same uncached input, cache-hit, visible output, and thinking counts. It is not a claim that the models do the same work.</p></div>
+      <div class="table-wrap comparison-table">
+        <table>
+          <caption>Worked example checked November 12, 2026: 1,000,000 uncached input, 1,000,000 cache-hit, 200,000 output, 100,000 thinking</caption>
+          <thead><tr><th>Estimate</th><th>USD</th><th>What is counted</th></tr></thead>
+          <tbody>
+            <tr><th>Carbon through Nov 30, 2026</th><td>$5.10</td><td>$2 input, $0.10 implicit cache, $10 output including thinking</td></tr>
+            <tr><th>Carbon from Dec 1, 2026</th><td>$10.20</td><td>$4 input, $0.20 implicit cache, $20 output including thinking</td></tr>
+            <tr><th>Fable 5.2 standard, global</th><td>$20.20</td><td>$8 input, $0.20 cache hit, $40 output. Thinking is included at the output rate because Fable has no separate thinking price.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lede">Fable cache writes, Fast mode, Batch, and the US inference multiplier are not part of this Carbon example. Open the <a href="../claude-fable-5-2-pricing/">Claude Fable 5.2 pricing calculator</a> for those. <a href="../gemini-4-argon-pricing/">Gemini 4 Argon</a> currently publishes the same introductory and December input/output pair on the Developer API; confirm both pages before treating the models as interchangeable.</p>
+    </section>
+    <section class="content-section faq" id="faq">
+      <div class="section-title"><span>04 / FAQ</span><h2>Gemini 4 Carbon pricing answers</h2></div>
+      <details><summary>How much does Gemini 4 Carbon cost?</summary><p>On the public Developer API paid tier, input is $2 per million tokens through November 30, 2026 and $4 from December 1, 2026. Output, including thinking tokens, is $10 and then $20. Implicit context caching is $0.10 and then $0.20.</p></details>
+      <details><summary>Which date does the calculator use?</summary><p>Auto resolves today's calendar date in the time zone you select. Explicit uses the date you type and ignores the clock. December 1, 2026 is the first day of the higher schedule. Google does not name a timezone for that change on the pricing page.</p></details>
+      <details><summary>Does the free tier cover Carbon?</summary><p>No. Google's pricing page says Gemini 4 Carbon is not available on the free tier.</p></details>
+      <details><summary>How are thinking tokens billed?</summary><p>The output price includes thinking tokens. Enter thinking separately only when your usage report has not already included those tokens in output.</p></details>
+      <details><summary>Is this Google's calculator?</summary><p>No. LLM Price Calc is an independent summary of published rates. Confirm the official pricing page before you budget a deployment.</p></details>
+    </section>
+    <section class="content-section">
+      <div class="source-box"><strong>Sources and scope.</strong> Checked November 12, 2026 (Asia/Shanghai). <a href="https://aistudio.google.com/docs/pricing" target="_blank" rel="noopener">Gemini API pricing</a> · <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/" target="_blank" rel="noopener">Google announcement, November 10, 2026</a> · <a href="../llm-api-pricing/">All LLM prices</a> · <a href="../claude-fable-5-2-pricing/">Claude Fable 5.2</a>.</div>
+    </section>
+  </main>
+  <footer>
+    <div><strong>LLM Price Calc</strong><p>Independent AI pricing guides, not affiliated with Google or other model providers.</p></div>
+    <div><span>Prices checked November 12, 2026</span><a href="../gemini-4-argon-pricing/">Argon pricing</a><a href="../claude-fable-5-2-pricing/">Fable 5.2</a><a href="../privacy.html">Privacy</a></div>
+  </footer>
+  <script src="../pricing/models.js"></script>
+  <script src="calculator.js"></script>
+  <script src="../feedback.js" defer></script>
+</body>
+</html>
