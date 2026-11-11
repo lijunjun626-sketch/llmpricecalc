@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Speech-to-Text Cost Calculator — Duration-Based Transcription APIs</title>
+  <meta name="description" content="Compare paid speech-to-text API cost by audio minutes or hours. File, batch, and live modes stay separate. Prices checked November 12, 2026 from official rate pages.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://llmpricecalc.com/speech-to-text-cost-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Speech-to-Text Cost Calculator">
+  <meta property="og:description" content="Estimate duration-based transcription API cost. Modes are priced separately.">
+  <meta property="og:url" content="https://llmpricecalc.com/speech-to-text-cost-calculator/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../hub.css">
+  <link rel="stylesheet" href="../compare.css">
+  <link rel="stylesheet" href="../feedback.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Speech-to-Text Cost Calculator","url":"https://llmpricecalc.com/speech-to-text-cost-calculator/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","isAccessibleForFree":true,"description":"Independent calculator for speech-to-text APIs that publish a price per audio minute or hour."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is speech-to-text cost calculated here?","acceptedAnswer":{"@type":"Answer","text":"Convert each task to seconds, apply a provider’s stated per-request rounding or per-channel rule, multiply by the task count, then by that provider’s published duration rate. Signup credits are not subtracted."}},{"@type":"Question","name":"Why are live and file prices not combined?","acceptedAnswer":{"@type":"Answer","text":"Live, streaming, batch, and pre-recorded modes are different products. A lower duration rate does not make one product a substitute for another."}},{"@type":"Question","name":"Are token-priced transcription models included?","acceptedAnswer":{"@type":"Answer","text":"No. OpenAI’s gpt-4o transcription models publish token rates plus an estimated cost per minute. Those estimates are not converted into a duration price."}}]}</script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">LP</span><span>LLM Price Calc</span></a>
+    <nav aria-label="Main navigation"><a href="#calculator">Calculator</a><a href="#rates">Rates</a><a href="#formula">Formula</a><a href="#excluded">Excluded</a></nav>
+    <span class="independent">Independent tool</span>
+  </header>
+  <main>
+    <section class="compare-hero">
+      <div>
+        <p class="eyebrow">SPEECH-TO-TEXT · PRICES CHECKED NOVEMBER 12, 2026 (ASIA/SHANGHAI)</p>
+        <h1>Speech-to-text<br><em>cost calculator</em></h1>
+      </div>
+      <p>Compare APIs that publish a price for audio duration. Enter the length of one item and how many items you run in a month. File, batch, and live rows stay separate. This is not a ranking of products.</p>
+    </section>
+    <section class="calculator" id="calculator">
+      <div class="calc-head">
+        <div><span>01 / DURATION CALCULATOR</span><h2>Price paid usage from audio length</h2></div>
+        <a href="#rates">Rate sources</a>
+      </div>
+      <form class="controls" id="cost-form">
+        <div class="field-grid">
+          <label>Audio length of one task<input id="duration" type="number" min="0" step="any" value="100"></label>
+          <label>Unit<select id="unit"><option value="hours" selected>Hours</option><option value="minutes">Minutes</option></select></label>
+          <label>Tasks per month<input id="tasks" type="number" min="0" step="1" value="1"></label>
+          <label>Audio channels<input id="channels" type="number" min="1" max="32" step="1" value="1"></label>
+        </div>
+        <p class="privacy-note">Nothing is uploaded. There is no account, API key, or call to a paid API. The default is the regular paid rate. New-account credits and the AWS 12-month allowance are shown beside each row and are not subtracted. Task count must be a whole number.</p>
+        <p id="error" role="alert"></p>
+      </form>
+      <div class="table-wrap">
+        <table>
+          <caption>Paid duration estimate. The figures in this table are for 100 hours, 1 task, 1 channel, before you change the inputs.</caption>
+          <thead>
+            <tr><th>Provider and model</th><th>Mode</th><th>Published rate</th><th>Billed seconds / task</th><th>One task</th><th>Monthly total</th></tr>
+          </thead>
+          <tbody>
+            <tr data-row="openai-gpt-transcribe"><th>OpenAI · gpt-transcribe</th><td>File transcription</td><td>$0.0045 per minute</td><td data-field="seconds">360000</td><td data-field="per">$27.00</td><td data-field="month">$27.00</td></tr>
+            <tr data-row="openai-whisper-1"><th>OpenAI · whisper-1 (deprecated)</th><td>File transcription</td><td>$0.006 per minute</td><td data-field="seconds">360000</td><td data-field="per">$36.00</td><td data-field="month">$36.00</td></tr>
+            <tr data-row="openai-gpt-live-transcribe"><th>OpenAI · gpt-live-transcribe</th><td>Live transcription</td><td>$0.017 per minute</td><td data-field="seconds">360000</td><td data-field="per">$102.00</td><td data-field="month">$102.00</td></tr>
+            <tr data-row="deepgram-nova3-mono-prerecorded"><th>Deepgram · Nova-3 Monolingual</th><td>Pre-recorded, pay as you go</td><td>$0.0043 per minute</td><td data-field="seconds">360000</td><td data-field="per">$25.80</td><td data-field="month">$25.80</td></tr>
+            <tr data-row="deepgram-nova3-mono-streaming"><th>Deepgram · Nova-3 Monolingual</th><td>Streaming, pay as you go</td><td>$0.0077 per minute</td><td data-field="seconds">360000</td><td data-field="per">$46.20</td><td data-field="month">$46.20</td></tr>
+            <tr data-row="assemblyai-universal-2"><th>AssemblyAI · universal-2</th><td>Pre-recorded</td><td>$0.15 per hour</td><td data-field="seconds">360000</td><td data-field="per">$15.00</td><td data-field="month">$15.00</td></tr>
+            <tr data-row="assemblyai-universal-3-5-pro"><th>AssemblyAI · universal-3-5-pro</th><td>Pre-recorded</td><td>$0.21 per hour</td><td data-field="seconds">360000</td><td data-field="per">$21.00</td><td data-field="month">$21.00</td></tr>
+            <tr data-row="google-stt-v2-standard"><th>Google Cloud · V2 standard recognition</th><td>Standard recognition</td><td>$0.016 per minute, first 500,000 minutes</td><td data-field="seconds">360000</td><td data-field="per">$96.00</td><td data-field="month">$96.00</td></tr>
+            <tr data-row="google-stt-v2-dynamic-batch"><th>Google Cloud · V2 dynamic batch</th><td>Dynamic batch</td><td>$0.003 per minute</td><td data-field="seconds">360000</td><td data-field="per">$18.00</td><td data-field="month">$18.00</td></tr>
+            <tr data-row="aws-transcribe-batch-us-east-1"><th>Amazon Transcribe · Standard</th><td>Batch, US East (N. Virginia)</td><td>$0.006 per minute</td><td data-field="seconds">360000</td><td data-field="per">$36.00</td><td data-field="month">$36.00</td></tr>
+            <tr data-row="aws-transcribe-streaming-us-east-1"><th>Amazon Transcribe · Standard</th><td>Streaming, US East (N. Virginia)</td><td>$0.01 per minute</td><td data-field="seconds">360000</td><td data-field="per">$60.00</td><td data-field="month">$60.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="privacy-note" id="workload">360000 seconds per task × 1 task × 1 channel</p>
+      <noscript><p>With JavaScript off, the table shows 100 hours as one task and one channel: OpenAI gpt-transcribe $27.00, whisper-1 $36.00, gpt-live-transcribe $102.00, Deepgram pre-recorded $25.80, Deepgram streaming $46.20, AssemblyAI universal-2 $15.00, universal-3-5-pro $21.00, Google standard $96.00, Google dynamic batch $18.00, Amazon batch $36.00, Amazon streaming $60.00.</p></noscript>
+    </section>
+    <section class="content-section" id="formula">
+      <div class="section-title"><span>02 / FORMULA</span><h2>Seconds, then tasks, then the published rate.</h2><p>Rounding that a provider states per request is applied to each task. It is not applied once to the monthly sum.</p></div>
+      <div class="formula"><code>seconds = hours × 3600, or minutes × 60<br>billed_seconds = seconds, or the next whole second when the provider says so<br>billed_seconds = billed_seconds × channels, only when that provider bills every channel<br>monthly_usd = billed_seconds × task_count × published_usd_per_second</code><p id="formula-note">A published hourly rate is divided by 3,600, and a published per-minute rate by 60, so the unit stays the official one. Amounts under $0.01 keep extra decimal places. $0.00 means the entered usage is zero, not that the API is free.</p></div>
+      <div class="warning"><strong>Modes are not substitutes.</strong><p>Live, streaming, dynamic batch, and file transcription differ in latency and features. A lower number in this table is only a lower duration charge for that row. It is not a verdict that one API replaces another.</p></div>
+    </section>
+    <section class="content-section" id="rates">
+      <div class="section-title"><span>03 / WHAT EACH ROW USES</span><h2>List price, currency, and the rule that changes the bill.</h2><p>All calculated rows are USD. Checked November 12, 2026 (Asia/Shanghai).</p></div>
+      <div class="table-wrap">
+        <table>
+          <caption>Official sources and billing limits</caption>
+          <thead><tr><th>Row</th><th>Free offer, not applied</th><th>Rounding and channels</th><th>Source</th></tr></thead>
+          <tbody>
+            <tr><th>OpenAI gpt-transcribe, file</th><td>No free audio minutes listed</td><td>Exact duration. Channel rule not stated.</td><td><a href="https://developers.openai.com/api/docs/models/gpt-transcribe" target="_blank" rel="noopener">Model pricing</a></td></tr>
+            <tr><th>OpenAI whisper-1, file</th><td>Free rate limit is not free audio</td><td>Exact duration. Deprecated model. Channel rule not stated.</td><td><a href="https://developers.openai.com/api/docs/models/whisper-1" target="_blank" rel="noopener">Model pricing</a></td></tr>
+            <tr><th>OpenAI gpt-live-transcribe</th><td>No free audio minutes listed</td><td>Exact live-audio duration. Channel rule not stated.</td><td><a href="https://developers.openai.com/api/docs/models/gpt-live-transcribe" target="_blank" rel="noopener">Model pricing</a></td></tr>
+            <tr><th>Deepgram Nova-3 Monolingual</th><td>$200 new-account credit</td><td>Per second, no block rounding, no minimum. Channels are summed.</td><td><a href="https://deepgram.com/pricing" target="_blank" rel="noopener">Deepgram pricing</a></td></tr>
+            <tr><th>AssemblyAI pre-recorded</th><td>$50 new-account credit</td><td>Pro-rated to the exact second. Each enabled channel is billed.</td><td><a href="https://www.assemblyai.com/pricing" target="_blank" rel="noopener">Pricing</a> · <a href="https://www.assemblyai.com/docs/billing-and-pricing" target="_blank" rel="noopener">Billing docs</a></td></tr>
+            <tr><th>Google Cloud Speech-to-Text V2</th><td>No free minutes on the V2 rows used here</td><td>Each request rounds up to 1 second. Each channel is billed. Standard recognition then uses monthly tiers.</td><td><a href="https://cloud.google.com/speech-to-text/pricing" target="_blank" rel="noopener">Google Cloud pricing</a></td></tr>
+            <tr><th>Amazon Transcribe standard</th><td>60 minutes a month for 12 months after the first request</td><td>One-second increments, no minimum. Partial-second round-up is not stated, so it is not applied. Up to two channels are included.</td><td><a href="https://aws.amazon.com/transcribe/pricing/" target="_blank" rel="noopener">Amazon Transcribe pricing</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lede">Worked 100-hour check, one task, one channel: gpt-transcribe $27.00, whisper-1 $36.00, gpt-live-transcribe $102.00, Deepgram pre-recorded $25.80, Deepgram streaming $46.20, universal-2 $15.00, universal-3-5-pro $21.00, Google standard $96.00, Google dynamic batch $18.00, Amazon batch $36.00, Amazon streaming $60.00.</p>
+    </section>
+    <section class="content-section" id="excluded">
+      <div class="section-title"><span>04 / LEFT OUT ON PURPOSE</span><h2>Some published figures are not duration rates.</h2></div>
+      <div class="warning"><strong>Not in the calculator:</strong><p>OpenAI lists token input and output prices for gpt-4o-transcribe, gpt-4o-mini-transcribe, and gpt-4o-transcribe-diarize, plus an estimated cost per minute. Those estimates are not converted into a duration price. AssemblyAI Universal-Streaming is $0.15 per hour and Universal-3.6 Pro Realtime is $0.45 per hour on the pricing page, but streaming bills WebSocket session duration, including idle time, and an unclosed session can bill up to 3 hours. Those session rates are not multiplied by the audio length entered above. Text-to-speech, voice agents, and voice cloning are out of scope. Growth plans, committed-use discounts, and startup programs are not assumed.</p></div>
+    </section>
+    <section class="content-section faq" id="faq">
+      <div class="section-title"><span>05 / FAQ</span><h2>Speech-to-text pricing answers</h2></div>
+      <details><summary>How is the monthly figure produced?</summary><p>Each task is converted to seconds. If the provider says each request rounds up to one second, that happens per task. If the provider bills every channel, the channel count is applied per task. The task count is a whole number and is applied after that. The result uses the published USD duration rate.</p></details>
+      <details><summary>Why can two rows with the same audio show different orders of cost?</summary><p>They can be file versus live, standard versus dynamic batch, or different models. Features and latency are not equal, so the rows are not a single ranking.</p></details>
+      <details><summary>Does $0.00 mean the provider is free?</summary><p>No. $0.00 means the duration or the task count you entered is zero. Credits and the AWS introductory allowance are listed and left unused by this estimate. Amounts below one cent stay visible, such as $0.0045.</p></details>
+    </section>
+    <section class="content-section">
+      <div class="source-box"><strong>Independent summary.</strong> LLM Price Calc is not affiliated with these providers. Token pricing for other models stays on the <a href="../llm-api-pricing/">LLM API pricing comparison</a>. Re-check the linked official pages before you budget a deployment.</div>
+    </section>
+  </main>
+  <footer>
+    <div><strong>LLM Price Calc</strong><p>Independent pricing guides, not affiliated with speech-to-text providers.</p></div>
+    <div><span>Prices checked November 12, 2026</span><a href="../">Home</a><a href="../llm-api-pricing/">Token prices</a><a href="../privacy.html">Privacy</a></div>
+  </footer>
+  <script src="rates.js"></script>
+  <script src="calculator.js"></script>
+  <script src="../feedback.js" defer></script>
+</body>
+</html>

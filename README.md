@@ -11,6 +11,7 @@ The site is static HTML, CSS, and JavaScript. Open `index.html` through a local 
 - `/claude-api-pricing/` — Claude API pricing hub
 - `/gemini-4-carbon-pricing/` — Gemini 4 Carbon Developer API calculator, including the December 1, 2026 rate change
 - `/claude-fable-5-2-pricing/` — Claude Fable 5.2 standard, Fast, and Batch calculator
+- `/speech-to-text-cost-calculator/` — duration-based speech-to-text comparison
 - `/step-5-preview-pricing/` — Step 5 Preview pricing guide
 - Model comparison and newly released model pricing pages
 
