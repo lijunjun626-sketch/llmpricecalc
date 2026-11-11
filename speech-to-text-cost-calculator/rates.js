@@ -251,7 +251,58 @@
     return micro;
   }
 
+  function billingFor(row, channels) {
+    if (row.channels === 'two-included' && channels > 2) {
+      return {
+        quoted: false,
+        billingBasis: 'Unavailable / Not quoted. Amazon states that the duration price includes up to two channels. It does not publish a formula for more than two channels, so this row shows no amount and does not invent a multiplier.'
+      };
+    }
+    if (row.channels === 'two-included') {
+      return {
+        quoted: true,
+        billingBasis: 'Quoted from the source audio duration once. Amazon states that up to two channels are included in that price. The channel count is not multiplied.'
+      };
+    }
+    if (row.channels === 'per-channel') {
+      return {
+        quoted: true,
+        billingBasis: channels > 1
+          ? 'Quoted after multiplying this provider’s billed duration by ' + channels + ' channels. That provider states each channel is billed.'
+          : 'Quoted from the source audio duration once. One channel is entered, so there is no extra channel multiplier.'
+      };
+    }
+    return {
+      quoted: true,
+      billingBasis: 'Quoted from the source audio duration once. This provider does not state a channel multiplier, so the channel count is not applied.'
+    };
+  }
+
+  function blankRow(row, basis) {
+    return {
+      id: row.id,
+      provider: row.provider,
+      model: row.model,
+      mode: row.mode,
+      currency: row.currency,
+      listed: row.listed,
+      free: row.free,
+      source: row.source,
+      note: row.note,
+      quoted: false,
+      billingBasis: basis.billingBasis,
+      channelNote: basis.billingBasis,
+      billedSecondsPerTask: null,
+      perTaskMicro: null,
+      monthlyMicro: null,
+      perTask: 'Not quoted',
+      monthly: 'Unavailable'
+    };
+  }
+
   function estimateRow(row, parsed) {
+    const basis = billingFor(row, parsed.channels);
+    if (!basis.quoted) return blankRow(row, basis);
     const perTaskSeconds = billedSecondsPerTask(row, parsed.seconds, parsed.channels);
     const totalSeconds = perTaskSeconds * parsed.tasks;
     if (!Number.isFinite(totalSeconds) || totalSeconds > 1e15) {
@@ -269,13 +320,6 @@
       throw new RangeError('Monthly total is too large to show.');
     }
     const perTaskMicro = parsed.tasks === 0 ? 0 : micro / parsed.tasks;
-    const channelNote = row.channels === 'per-channel'
-      ? (parsed.channels > 1 ? 'Channel count is multiplied because this provider bills each channel.' : 'One channel. No extra channel multiplier.')
-      : row.channels === 'two-included'
-        ? (parsed.channels > 2
-          ? 'More than two channels: Amazon states that up to two channels are included and does not publish a further formula here, so this row does not multiply.'
-          : 'Up to two channels are included in the duration price, so this row does not multiply.')
-        : 'No channel rule is stated for this row, so channels are not multiplied.';
     return {
       id: row.id,
       provider: row.provider,
@@ -286,7 +330,9 @@
       free: row.free,
       source: row.source,
       note: row.note,
-      channelNote: channelNote,
+      quoted: true,
+      billingBasis: basis.billingBasis,
+      channelNote: basis.billingBasis,
       billedSecondsPerTask: perTaskSeconds,
       perTaskMicro: roundMicro(perTaskMicro),
       monthlyMicro: roundMicro(micro),
@@ -297,11 +343,16 @@
 
   function estimate(input) {
     const parsed = parseInput(input);
+    const sourceSecondsTotal = parsed.seconds * parsed.tasks;
+    const taskLabel = parsed.tasks === 1 ? '1 task' : parsed.tasks + ' tasks';
     return {
       checked: CHECKED,
       secondsPerTask: parsed.seconds,
+      sourceSecondsPerTask: parsed.seconds,
+      sourceSecondsTotal: sourceSecondsTotal,
       tasks: parsed.tasks,
       channels: parsed.channels,
+      summary: 'Source audio is ' + parsed.seconds + ' seconds in each of ' + taskLabel + ' (' + sourceSecondsTotal + ' seconds total). Channel count entered: ' + parsed.channels + '. Whether channels change the bill is stated on each row.',
       rows: ROWS.map(row => estimateRow(row, parsed))
     };
   }

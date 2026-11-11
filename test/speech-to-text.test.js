@@ -63,16 +63,65 @@ test('Google rounds each request up to one second before multiplying by the task
   assert.ok(split['google-stt-v2-standard'].monthlyMicro > 0);
 });
 
-test('channel multipliers follow only the published rules', () => {
-  const stereo = byId(speech.estimate({ duration: 10, unit: 'minutes', tasks: 1, channels: 2 }));
-  assert.equal(stereo['deepgram-nova3-mono-prerecorded'].monthly, '$0.086');
-  assert.equal(stereo['assemblyai-universal-2'].monthly, '$0.05');
-  assert.equal(stereo['google-stt-v2-standard'].monthly, '$0.32');
-  assert.equal(stereo['openai-gpt-transcribe'].monthly, '$0.045');
-  assert.equal(stereo['aws-transcribe-batch-us-east-1'].monthly, '$0.06');
-  const three = byId(speech.estimate({ duration: 10, unit: 'minutes', tasks: 1, channels: 3 }));
-  assert.equal(three['aws-transcribe-batch-us-east-1'].monthly, '$0.06');
-  assert.match(three['aws-transcribe-batch-us-east-1'].channelNote, /does not multiply/);
+test('two channels multiply only where the provider says so', () => {
+  const one = byId(speech.estimate({ duration: 10, unit: 'minutes', tasks: 1, channels: 1 }));
+  const two = byId(speech.estimate({ duration: 10, unit: 'minutes', tasks: 1, channels: 2 }));
+  assert.equal(two['deepgram-nova3-mono-prerecorded'].monthly, '$0.086');
+  assert.equal(two['assemblyai-universal-2'].monthly, '$0.05');
+  assert.equal(two['google-stt-v2-standard'].monthly, '$0.32');
+  assert.match(two['deepgram-nova3-mono-prerecorded'].channelNote, /multiplying this provider’s billed duration by 2 channels/);
+  assert.equal(two['openai-gpt-transcribe'].monthly, one['openai-gpt-transcribe'].monthly);
+  assert.match(two['openai-gpt-transcribe'].channelNote, /does not state a channel multiplier/);
+  assert.equal(two['aws-transcribe-batch-us-east-1'].monthly, '$0.06');
+  assert.equal(two['aws-transcribe-streaming-us-east-1'].monthly, '$0.10');
+  assert.match(two['aws-transcribe-batch-us-east-1'].channelNote, /up to two channels are included/i);
+  assert.match(two['aws-transcribe-batch-us-east-1'].channelNote, /not multiplied/i);
+  assert.equal(two['aws-transcribe-batch-us-east-1'].quoted, true);
+});
+
+test('three Amazon channels are not quoted and the note is rendered', () => {
+  const three = speech.estimate({ duration: 10, unit: 'minutes', tasks: 1, channels: 3 });
+  assert.match(three.summary, /Source audio is 600 seconds/);
+  assert.match(three.summary, /Channel count entered: 3/);
+  assert.doesNotMatch(three.summary, /× 3 channels/);
+  const rows = byId(three);
+  for (const id of ['aws-transcribe-batch-us-east-1', 'aws-transcribe-streaming-us-east-1']) {
+    assert.equal(rows[id].quoted, false);
+    assert.equal(rows[id].monthly, 'Unavailable');
+    assert.equal(rows[id].perTask, 'Not quoted');
+    assert.equal(rows[id].monthlyMicro, null);
+    assert.match(rows[id].channelNote, /Unavailable \/ Not quoted/);
+    assert.match(rows[id].channelNote, /up to two channels/i);
+    assert.doesNotMatch(rows[id].channelNote, /\$0\./);
+  }
+  assert.equal(rows['openai-gpt-transcribe'].monthly, '$0.045');
+  assert.match(rows['openai-gpt-transcribe'].channelNote, /not applied/);
+  assert.equal(rows['deepgram-nova3-mono-prerecorded'].monthly, '$0.129');
+  const { render } = require('../speech-to-text-cost-calculator/calculator.js');
+  const fields = {};
+  const doc = {
+    getElementById(id) { return fields[id] || (fields[id] = { textContent: '' }); },
+    querySelector(selector) {
+      const id = selector.match(/data-row="([^"]+)"/)[1];
+      return {
+        querySelector(fieldSelector) {
+          const field = fieldSelector.match(/data-field="([^"]+)"/)[1];
+          const key = id + ':' + field;
+          return fields[key] || (fields[key] = { textContent: '' });
+        }
+      };
+    },
+    querySelectorAll() { return []; }
+  };
+  render(doc, three);
+  assert.equal(fields.workload.textContent, three.summary);
+  assert.equal(fields['aws-transcribe-batch-us-east-1:month'].textContent, 'Unavailable');
+  assert.equal(fields['aws-transcribe-batch-us-east-1:per'].textContent, 'Not quoted');
+  assert.equal(fields['aws-transcribe-batch-us-east-1:basis'].textContent, rows['aws-transcribe-batch-us-east-1'].channelNote);
+  assert.equal(fields['aws-transcribe-streaming-us-east-1:basis'].textContent, rows['aws-transcribe-streaming-us-east-1'].channelNote);
+  assert.match(fields['openai-gpt-transcribe:basis'].textContent, /not applied/);
+  assert.match(fields['deepgram-nova3-mono-prerecorded:basis'].textContent, /by 3 channels/);
+  assert.match(read('speech-to-text-cost-calculator/index.html'), /data-field="basis"/);
 });
 
 test('Google standard volume tiers apply to the monthly billed minutes', () => {
